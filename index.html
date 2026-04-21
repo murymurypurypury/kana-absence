@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>欠席連絡 - KANA English</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F7F6F3;
+      --card: #FFFFFF;
+      --primary: #3B7A57;
+      --primary-light: #E8F0EB;
+      --primary-dark: #2D5E43;
+      --text: #2C2C2C;
+      --text-light: #6B6B6B;
+      --border: #E0DED8;
+      --error: #C0392B;
+      --error-bg: #FDEDEB;
+      --success: #27AE60;
+      --success-bg: #E8F8F0;
+      --shadow: 0 2px 12px rgba(0,0,0,0.06);
+      --radius: 14px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Zen Maru Gothic', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 0 0 40px 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--primary);
+      color: white;
+      padding: 24px 20px 28px;
+      text-align: center;
+      position: relative;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 0; right: 0;
+      height: 24px;
+      background: var(--bg);
+      border-radius: 16px 16px 0 0;
+    }
+    .header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .header p {
+      font-size: 13px;
+      opacity: 0.85;
+      margin-top: 4px;
+    }
+
+    /* ── Form Container ── */
+    .form-container {
+      max-width: 420px;
+      margin: 8px auto 0;
+      padding: 0 16px;
+    }
+
+    /* ── Field Group ── */
+    .field {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow);
+    }
+    .field-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .field-label .icon {
+      font-size: 16px;
+    }
+    .field-label .required {
+      font-size: 10px;
+      background: var(--error);
+      color: white;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    /* ── Select / Input ── */
+    select, input[type="date"], textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-size: 16px;
+      color: var(--text);
+      background: white;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: border-color 0.2s;
+    }
+    select:focus, input[type="date"]:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B6B6B' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+    select.placeholder { color: var(--text-light); }
+    textarea {
+      resize: none;
+      height: 70px;
+    }
+
+    /* ── Date Shortcuts ── */
+    .date-shortcuts {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .date-shortcut {
+      flex: 1;
+      padding: 10px 0;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      background: white;
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .date-shortcut:active,
+    .date-shortcut.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    /* ── Confirmation Card ── */
+    .confirm-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 20px 16px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--primary);
+    }
+    .confirm-card h3 {
+      font-size: 15px;
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+    }
+    .confirm-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .confirm-row:last-of-type { border-bottom: none; }
+    .confirm-row .label { color: var(--text-light); }
+    .confirm-row .value { font-weight: 500; }
+
+    /* ── Buttons ── */
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--primary);
+      color: white;
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 16px rgba(59,122,87,0.25);
+      margin-top: 4px;
+    }
+    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn:disabled {
+      background: var(--border);
+      color: var(--text-light);
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+    .back-btn {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      background: white;
+      color: var(--text);
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    /* ── Status Messages ── */
+    .status-message {
+      text-align: center;
+      padding: 16px;
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .status-success {
+      background: var(--success-bg);
+      color: var(--success);
+    }
+    .status-error {
+      background: var(--error-bg);
+      color: var(--error);
+    }
+
+    /* ── Success Screen ── */
+    .success-screen {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--success-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 36px;
+    }
+    .success-screen h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+    .success-screen p {
+      color: var(--text-light);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .close-btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--primary);
+      color: white;
+      font-family: 'Zen Maru Gothic', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 28px;
+      box-shadow: 0 4px 16px rgba(59,122,87,0.25);
+    }
+
+    /* ── Loading Overlay ── */
+    .loading-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(247,246,243,0.92);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 4px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-overlay p {
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    /* ── Hidden ── */
+    .hidden { display: none !important; }
+
+    /* ── Error state for fields ── */
+    .field.error select,
+    .field.error input {
+      border-color: var(--error);
+    }
+    .field-error-text {
+      font-size: 12px;
+      color: var(--error);
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading -->
+  <div id="loading" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>読み込み中...</p>
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <h1>🏫 欠席連絡</h1>
+    <p>KANA English</p>
+  </div>
+
+  <!-- ════════ FORM SCREEN ════════ -->
+  <div id="formScreen" class="form-container hidden">
+
+    <!-- Student Name -->
+    <div class="field" id="fieldStudent">
+      <div class="field-label">
+        <span class="icon">👤</span>生徒名<span class="required">必須</span>
+      </div>
+      <select id="studentName" class="placeholder" onchange="this.classList.remove('placeholder')">
+        <option value="" disabled selected>生徒を選んでください</option>
+      </select>
+    </div>
+
+    <!-- Date -->
+    <div class="field" id="fieldDate">
+      <div class="field-label">
+        <span class="icon">📅</span>欠席日<span class="required">必須</span>
+      </div>
+      <div class="date-shortcuts">
+        <button class="date-shortcut" onclick="setDate('today', this)">今日</button>
+        <button class="date-shortcut" onclick="setDate('tomorrow', this)">明日</button>
+        <button class="date-shortcut" onclick="setDate('day-after', this)">明後日</button>
+      </div>
+      <input type="date" id="absenceDate" min="">
+    </div>
+
+    <!-- Class Time -->
+    <div class="field" id="fieldTime">
+      <div class="field-label">
+        <span class="icon">🕐</span>クラス時間<span class="required">必須</span>
+      </div>
+      <select id="classTime" class="placeholder" onchange="this.classList.remove('placeholder')">
+        <option value="" disabled selected>時間を選んでください</option>
+        <option value="15:00">15:00</option>
+        <option value="15:30">15:30</option>
+        <option value="16:00">16:00</option>
+        <option value="16:30">16:30</option>
+        <option value="17:00">17:00</option>
+        <option value="17:30">17:30</option>
+        <option value="18:00">18:00</option>
+        <option value="18:30">18:30</option>
+        <option value="19:00">19:00</option>
+      </select>
+    </div>
+
+    <!-- Reason -->
+    <div class="field">
+      <div class="field-label">
+        <span class="icon">📝</span>理由
+      </div>
+      <select id="reason" class="placeholder" onchange="handleReasonChange(this)">
+        <option value="" selected>選択してください（任意）</option>
+        <option value="体調不良">体調不良</option>
+        <option value="家庭の事情">家庭の事情</option>
+        <option value="学校行事">学校行事</option>
+        <option value="習い事">習い事</option>
+        <option value="other">その他（自由記入）</option>
+      </select>
+      <textarea id="reasonText" class="hidden" placeholder="理由を入力してください"></textarea>
+    </div>
+
+    <!-- Submit -->
+    <button class="submit-btn" onclick="showConfirmation()">確認画面へ</button>
+  </div>
+
+  <!-- ════════ CONFIRM SCREEN ════════ -->
+  <div id="confirmScreen" class="form-container hidden">
+    <div class="confirm-card">
+      <h3>📋 以下の内容で送信します</h3>
+      <div class="confirm-row">
+        <span class="label">生徒名</span>
+        <span class="value" id="confirmStudent"></span>
+      </div>
+      <div class="confirm-row">
+        <span class="label">欠席日</span>
+        <span class="value" id="confirmDate"></span>
+      </div>
+      <div class="confirm-row">
+        <span class="label">クラス時間</span>
+        <span class="value" id="confirmTime"></span>
+      </div>
+      <div class="confirm-row">
+        <span class="label">理由</span>
+        <span class="value" id="confirmReason"></span>
+      </div>
+    </div>
+    <button class="submit-btn" id="sendBtn" onclick="submitAbsence()">この内容で送信する</button>
+    <button class="back-btn" onclick="backToForm()">修正する</button>
+  </div>
+
+  <!-- ════════ SUCCESS SCREEN ════════ -->
+  <div id="successScreen" class="form-container hidden">
+    <div class="success-screen">
+      <div class="success-icon">✅</div>
+      <h2>送信完了</h2>
+      <p>欠席連絡を受け付けました。<br>確認のメッセージをLINEでお送りします。</p>
+      <button class="close-btn" onclick="closeLiff()">閉じる</button>
+    </div>
+  </div>
+
+  <!-- ════════ ERROR SCREEN ════════ -->
+  <div id="errorScreen" class="form-container hidden">
+    <div class="status-message status-error" id="errorMessage">
+      エラーが発生しました。もう一度お試しください。
+    </div>
+    <button class="submit-btn" onclick="resetForm()">もう一度やり直す</button>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SCRIPTS -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  <script>
+    // ════════════════════════════════════════════════
+    // CONFIG — EDIT THESE VALUES
+    // ════════════════════════════════════════════════
+    const CONFIG = {
+      LIFF_ID: '2009843493-wbTFJitn',
+      WEBHOOK_URL: 'https://hook.eu1.make.com/68awyiuq2m5y6tneni64yp7eqlcnm64s',
+      STUDENT_API: 'https://script.google.com/macros/s/AKfycbyq44AVxEJhqaPZKvAhA8UfzH5C2nvoIF0GFs3Bka2eLF_bAJikb7XNO2L_D2LVIdIA/exec',
+      API_SECRET: '1234567890123456789012345678901234567890'
+    };
+    // ════════════════════════════════════════════════
+
+
+    // ── State ──
+    let lineUserId = null;
+    let lineDisplayName = null;
+
+
+    // ── Initialize LIFF ──
+    async function initLiff() {
+      try {
+        await liff.init({ liffId: CONFIG.LIFF_ID });
+
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+
+        const profile = await liff.getProfile();
+        lineUserId = profile.userId;
+        lineDisplayName = profile.displayName;
+
+        // ═══ DEBUG ALERT 1 — shows your LINE userId ═══
+        alert('DEBUG 1 - LINE userId: ' + lineUserId);
+        // ═══════════════════════════════════════════════
+
+        await populateStudents();
+        setMinDate();
+        showScreen('formScreen');
+
+      } catch (err) {
+        console.error('LIFF init error:', err);
+        // ═══ DEBUG ALERT — LIFF error ═══
+        alert('DEBUG - LIFF error: ' + err.message);
+        // ═════════════════════════════════
+        document.getElementById('errorMessage').textContent =
+          'LIFFの初期化に失敗しました。LINEアプリから開き直してください。';
+        showScreen('errorScreen');
+      }
+    }
+
+
+    // ── Populate student dropdown from Apps Script API ──
+    async function populateStudents() {
+      const select = document.getElementById('studentName');
+
+      try {
+        const url = CONFIG.STUDENT_API
+          + '?userId=' + encodeURIComponent(lineUserId)
+          + '&secret=' + encodeURIComponent(CONFIG.API_SECRET);
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        // ═══ DEBUG ALERT 2 — shows what the API returned ═══
+        alert('DEBUG 2 - API returned: ' + JSON.stringify(data));
+        // ════════════════════════════════════════════════════
+
+        if (data.students && data.students.length > 0) {
+          data.students.forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s.name;
+            opt.textContent = s.name;
+            select.appendChild(opt);
+          });
+
+          // If only one child, auto-select them
+          if (data.students.length === 1) {
+            select.selectedIndex = 1;
+            select.classList.remove('placeholder');
+          }
+        } else {
+          // No students found for this LINE account
+          const opt = document.createElement('option');
+          opt.value = '';
+          opt.textContent = '生徒が見つかりません';
+          select.appendChild(opt);
+
+          document.getElementById('errorMessage').textContent =
+            'このLINEアカウントに紐づく生徒が見つかりません。スタッフまでご連絡ください。';
+          showScreen('errorScreen');
+        }
+      } catch (err) {
+        console.error('Failed to load students:', err);
+        // ═══ DEBUG ALERT 3 — shows fetch error ═══
+        alert('DEBUG 3 - API error: ' + err.message);
+        // ══════════════════════════════════════════
+        document.getElementById('errorMessage').textContent =
+          '生徒情報の読み込みに失敗しました。もう一度お試しください。';
+        showScreen('errorScreen');
+      }
+    }
+
+
+    // ── Date helpers ──
+    function toLocalDateString(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function setMinDate() {
+      document.getElementById('absenceDate').min = toLocalDateString(new Date());
+    }
+
+    function setDate(which, btn) {
+      const today = new Date();
+      let target = new Date();
+      if (which === 'tomorrow') target.setDate(today.getDate() + 1);
+      if (which === 'day-after') target.setDate(today.getDate() + 2);
+
+      document.getElementById('absenceDate').value = toLocalDateString(target);
+
+      // Highlight active button
+      document.querySelectorAll('.date-shortcut').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+
+    // ── Reason change handler ──
+    function handleReasonChange(select) {
+      select.classList.remove('placeholder');
+      const textarea = document.getElementById('reasonText');
+      if (select.value === 'other') {
+        textarea.classList.remove('hidden');
+        textarea.focus();
+      } else {
+        textarea.classList.add('hidden');
+        textarea.value = '';
+      }
+    }
+
+
+    // ── Get reason text ──
+    function getReasonText() {
+      const sel = document.getElementById('reason');
+      if (sel.value === 'other') {
+        return document.getElementById('reasonText').value.trim() || 'その他';
+      }
+      return sel.value || 'なし';
+    }
+
+
+    // ── Format date for display ──
+    function formatDateJP(dateStr) {
+      const d = new Date(dateStr + 'T00:00:00');
+      const days = ['日', '月', '火', '水', '木', '金', '土'];
+      return `${d.getMonth() + 1}月${d.getDate()}日（${days[d.getDay()]}）`;
+    }
+
+
+    // ── Validation ──
+    function validate() {
+      let valid = true;
+
+      // Clear previous errors
+      document.querySelectorAll('.field').forEach(f => f.classList.remove('error'));
+      document.querySelectorAll('.field-error-text').forEach(e => e.remove());
+
+      const student = document.getElementById('studentName').value;
+      const date = document.getElementById('absenceDate').value;
+      const time = document.getElementById('classTime').value;
+
+      if (!student) {
+        markError('fieldStudent', '生徒を選んでください');
+        valid = false;
+      }
+      if (!date) {
+        markError('fieldDate', '日付を選んでください');
+        valid = false;
+      }
+      if (!time) {
+        markError('fieldTime', '時間を選んでください');
+        valid = false;
+      }
+
+      return valid;
+    }
+
+    function markError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      field.classList.add('error');
+      const err = document.createElement('div');
+      err.className = 'field-error-text';
+      err.textContent = message;
+      field.appendChild(err);
+    }
+
+
+    // ── Show confirmation ──
+    function showConfirmation() {
+      if (!validate()) return;
+
+      const student = document.getElementById('studentName');
+      const date = document.getElementById('absenceDate').value;
+      const time = document.getElementById('classTime').value;
+
+      document.getElementById('confirmStudent').textContent = student.options[student.selectedIndex].text;
+      document.getElementById('confirmDate').textContent = formatDateJP(date);
+      document.getElementById('confirmTime').textContent = time;
+      document.getElementById('confirmReason').textContent = getReasonText();
+
+      showScreen('confirmScreen');
+    }
+
+
+    // ── Back to form ──
+    function backToForm() {
+      showScreen('formScreen');
+    }
+
+
+    // ── Submit to Make webhook ──
+    async function submitAbsence() {
+      const btn = document.getElementById('sendBtn');
+      btn.disabled = true;
+      btn.textContent = '送信中...';
+
+      const student = document.getElementById('studentName');
+
+      const payload = {
+        lineUserId: lineUserId,
+        lineDisplayName: lineDisplayName,
+        studentName: student.options[student.selectedIndex].text,
+        studentId: student.value,
+        absenceDate: document.getElementById('absenceDate').value,
+        classTime: document.getElementById('classTime').value,
+        reason: getReasonText(),
+        submittedAt: new Date().toISOString()
+      };
+
+      try {
+        const response = await fetch(CONFIG.WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok || response.status === 200) {
+          showScreen('successScreen');
+        } else {
+          throw new Error('Server responded with ' + response.status);
+        }
+      } catch (err) {
+        console.error('Submit error:', err);
+        document.getElementById('errorMessage').textContent =
+          '送信に失敗しました。電波状況を確認して、もう一度お試しください。';
+        showScreen('errorScreen');
+      }
+    }
+
+
+    // ── Close LIFF ──
+    function closeLiff() {
+      if (liff.isInClient()) {
+        liff.closeWindow();
+      } else {
+        window.close();
+      }
+    }
+
+
+    // ── Reset form ──
+    function resetForm() {
+      document.getElementById('studentName').selectedIndex = 0;
+      document.getElementById('studentName').classList.add('placeholder');
+      document.getElementById('absenceDate').value = '';
+      document.getElementById('classTime').selectedIndex = 0;
+      document.getElementById('classTime').classList.add('placeholder');
+      document.getElementById('reason').selectedIndex = 0;
+      document.getElementById('reason').classList.add('placeholder');
+      document.getElementById('reasonText').value = '';
+      document.getElementById('reasonText').classList.add('hidden');
+      document.querySelectorAll('.date-shortcut').forEach(b => b.classList.remove('active'));
+      showScreen('formScreen');
+    }
+
+
+    // ── Screen management ──
+    function showScreen(screenId) {
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('formScreen').classList.add('hidden');
+      document.getElementById('confirmScreen').classList.add('hidden');
+      document.getElementById('successScreen').classList.add('hidden');
+      document.getElementById('errorScreen').classList.add('hidden');
+      document.getElementById(screenId).classList.remove('hidden');
+    }
+
+
+    // ── Start ──
+    document.addEventListener('DOMContentLoaded', initLiff);
+  </script>
+</body>
+</html>
