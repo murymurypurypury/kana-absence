@@ -35,7 +35,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Header ── */
     .header {
       background: var(--primary);
       color: white;
@@ -63,14 +62,12 @@
       margin-top: 4px;
     }
 
-    /* ── Form Container ── */
     .form-container {
       max-width: 420px;
       margin: 8px auto 0;
       padding: 0 16px;
     }
 
-    /* ── Field Group ── */
     .field {
       background: var(--card);
       border-radius: var(--radius);
@@ -87,9 +84,7 @@
       align-items: center;
       gap: 6px;
     }
-    .field-label .icon {
-      font-size: 16px;
-    }
+    .field-label .icon { font-size: 16px; }
     .field-label .required {
       font-size: 10px;
       background: var(--error);
@@ -99,7 +94,6 @@
       font-weight: 500;
     }
 
-    /* ── Select / Input ── */
     select, input[type="date"], textarea {
       width: 100%;
       padding: 12px 14px;
@@ -124,12 +118,8 @@
       padding-right: 36px;
     }
     select.placeholder { color: var(--text-light); }
-    textarea {
-      resize: none;
-      height: 70px;
-    }
+    textarea { resize: none; height: 70px; }
 
-    /* ── Date Shortcuts ── */
     .date-shortcuts {
       display: flex;
       gap: 8px;
@@ -156,7 +146,6 @@
       color: var(--primary-dark);
     }
 
-    /* ── Confirmation Card ── */
     .confirm-card {
       background: var(--card);
       border-radius: var(--radius);
@@ -181,7 +170,6 @@
     .confirm-row .label { color: var(--text-light); }
     .confirm-row .value { font-weight: 500; }
 
-    /* ── Buttons ── */
     .submit-btn {
       width: 100%;
       padding: 16px;
@@ -218,7 +206,6 @@
       margin-top: 8px;
     }
 
-    /* ── Status Messages ── */
     .status-message {
       text-align: center;
       padding: 16px;
@@ -227,16 +214,11 @@
       font-size: 14px;
       font-weight: 500;
     }
-    .status-success {
-      background: var(--success-bg);
-      color: var(--success);
-    }
     .status-error {
       background: var(--error-bg);
       color: var(--error);
     }
 
-    /* ── Success Screen ── */
     .success-screen {
       text-align: center;
       padding: 40px 20px;
@@ -275,8 +257,13 @@
       margin-top: 28px;
       box-shadow: 0 4px 16px rgba(59,122,87,0.25);
     }
+    .close-message {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    .close-message.hidden { display: none; }
 
-    /* ── Loading Overlay ── */
     .loading-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -301,14 +288,10 @@
       color: var(--text-light);
     }
 
-    /* ── Hidden ── */
     .hidden { display: none !important; }
 
-    /* ── Error state for fields ── */
     .field.error select,
-    .field.error input {
-      border-color: var(--error);
-    }
+    .field.error input { border-color: var(--error); }
     .field-error-text {
       font-size: 12px;
       color: var(--error);
@@ -318,13 +301,11 @@
 </head>
 <body>
 
-  <!-- Loading -->
   <div id="loading" class="loading-overlay">
     <div class="spinner"></div>
     <p>読み込み中...</p>
   </div>
 
-  <!-- Header -->
   <div class="header">
     <h1>🏫 欠席連絡</h1>
     <p>KANA English</p>
@@ -333,7 +314,6 @@
   <!-- ════════ FORM SCREEN ════════ -->
   <div id="formScreen" class="form-container hidden">
 
-    <!-- Student Name -->
     <div class="field" id="fieldStudent">
       <div class="field-label">
         <span class="icon">👤</span>生徒名<span class="required">必須</span>
@@ -343,7 +323,6 @@
       </select>
     </div>
 
-    <!-- Date -->
     <div class="field" id="fieldDate">
       <div class="field-label">
         <span class="icon">📅</span>欠席日<span class="required">必須</span>
@@ -356,26 +335,24 @@
       <input type="date" id="absenceDate" min="">
     </div>
 
-    <!-- Class Time -->
     <div class="field" id="fieldTime">
       <div class="field-label">
         <span class="icon">🕐</span>クラス時間<span class="required">必須</span>
       </div>
       <select id="classTime" class="placeholder" onchange="this.classList.remove('placeholder')">
         <option value="" disabled selected>時間を選んでください</option>
+        <option value="13:00">13:00</option>
+        <option value="14:00">14:00</option>
         <option value="15:00">15:00</option>
-        <option value="15:30">15:30</option>
         <option value="16:00">16:00</option>
-        <option value="16:30">16:30</option>
         <option value="17:00">17:00</option>
-        <option value="17:30">17:30</option>
         <option value="18:00">18:00</option>
-        <option value="18:30">18:30</option>
         <option value="19:00">19:00</option>
+        <option value="20:00">20:00</option>
+        <option value="21:00">21:00</option>
       </select>
     </div>
 
-    <!-- Reason -->
     <div class="field">
       <div class="field-label">
         <span class="icon">📝</span>理由
@@ -391,7 +368,6 @@
       <textarea id="reasonText" class="hidden" placeholder="理由を入力してください"></textarea>
     </div>
 
-    <!-- Submit -->
     <button class="submit-btn" onclick="showConfirmation()">確認画面へ</button>
   </div>
 
@@ -427,6 +403,7 @@
       <h2>送信完了</h2>
       <p>欠席連絡を受け付けました。<br>確認のメッセージをLINEでお送りします。</p>
       <button class="close-btn" onclick="closeLiff()">閉じる</button>
+      <p id="closeMessage" class="close-message hidden">画面を下にスワイプして閉じてください。</p>
     </div>
   </div>
 
@@ -439,29 +416,24 @@
   </div>
 
 
-  <!-- ═══════════════════════════════════════════════ -->
-  <!-- SCRIPTS -->
-  <!-- ═══════════════════════════════════════════════ -->
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
     // ════════════════════════════════════════════════
-    // CONFIG — EDIT THESE VALUES
+    // CONFIG
     // ════════════════════════════════════════════════
     const CONFIG = {
       LIFF_ID: '2009843493-wbTFJitn',
       WEBHOOK_URL: 'https://hook.eu1.make.com/68awyiuq2m5y6tneni64yp7eqlcnm64s',
-      STUDENT_API: 'https://hook.eu1.make.com/5ccwg3jy3wnee5pizu3e6evn0zua6yrb',
+      STUDENT_API: 'https://hook.eu1.make.com/YOUR_STUDENT_LIST_WEBHOOK_URL',
       API_SECRET: '1234567890123456789012345678901234567890'
     };
     // ════════════════════════════════════════════════
 
 
-    // ── State ──
     let lineUserId = null;
     let lineDisplayName = null;
 
 
-    // ── Initialize LIFF ──
     async function initLiff() {
       try {
         await liff.init({ liffId: CONFIG.LIFF_ID });
@@ -475,19 +447,12 @@
         lineUserId = profile.userId;
         lineDisplayName = profile.displayName;
 
-        // ═══ DEBUG ALERT 1 — shows your LINE userId ═══
-        alert('DEBUG 1 - LINE userId: ' + lineUserId);
-        // ═══════════════════════════════════════════════
-
         await populateStudents();
         setMinDate();
         showScreen('formScreen');
 
       } catch (err) {
         console.error('LIFF init error:', err);
-        // ═══ DEBUG ALERT — LIFF error ═══
-        alert('DEBUG - LIFF error: ' + err.message);
-        // ═════════════════════════════════
         document.getElementById('errorMessage').textContent =
           'LIFFの初期化に失敗しました。LINEアプリから開き直してください。';
         showScreen('errorScreen');
@@ -495,7 +460,6 @@
     }
 
 
-    // ── Populate student dropdown from Apps Script API ──
     async function populateStudents() {
       const select = document.getElementById('studentName');
 
@@ -507,10 +471,6 @@
         const response = await fetch(url);
         const data = await response.json();
 
-        // ═══ DEBUG ALERT 2 — shows what the API returned ═══
-        alert('DEBUG 2 - API returned: ' + JSON.stringify(data));
-        // ════════════════════════════════════════════════════
-
         if (data.students && data.students.length > 0) {
           data.students.forEach(s => {
             const opt = document.createElement('option');
@@ -519,13 +479,11 @@
             select.appendChild(opt);
           });
 
-          // If only one child, auto-select them
           if (data.students.length === 1) {
             select.selectedIndex = 1;
             select.classList.remove('placeholder');
           }
         } else {
-          // No students found for this LINE account
           const opt = document.createElement('option');
           opt.value = '';
           opt.textContent = '生徒が見つかりません';
@@ -537,9 +495,6 @@
         }
       } catch (err) {
         console.error('Failed to load students:', err);
-        // ═══ DEBUG ALERT 3 — shows fetch error ═══
-        alert('DEBUG 3 - API error: ' + err.message);
-        // ══════════════════════════════════════════
         document.getElementById('errorMessage').textContent =
           '生徒情報の読み込みに失敗しました。もう一度お試しください。';
         showScreen('errorScreen');
@@ -547,7 +502,6 @@
     }
 
 
-    // ── Date helpers ──
     function toLocalDateString(date) {
       const y = date.getFullYear();
       const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -567,13 +521,11 @@
 
       document.getElementById('absenceDate').value = toLocalDateString(target);
 
-      // Highlight active button
       document.querySelectorAll('.date-shortcut').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     }
 
 
-    // ── Reason change handler ──
     function handleReasonChange(select) {
       select.classList.remove('placeholder');
       const textarea = document.getElementById('reasonText');
@@ -587,7 +539,6 @@
     }
 
 
-    // ── Get reason text ──
     function getReasonText() {
       const sel = document.getElementById('reason');
       if (sel.value === 'other') {
@@ -597,7 +548,6 @@
     }
 
 
-    // ── Format date for display ──
     function formatDateJP(dateStr) {
       const d = new Date(dateStr + 'T00:00:00');
       const days = ['日', '月', '火', '水', '木', '金', '土'];
@@ -605,11 +555,9 @@
     }
 
 
-    // ── Validation ──
     function validate() {
       let valid = true;
 
-      // Clear previous errors
       document.querySelectorAll('.field').forEach(f => f.classList.remove('error'));
       document.querySelectorAll('.field-error-text').forEach(e => e.remove());
 
@@ -643,7 +591,6 @@
     }
 
 
-    // ── Show confirmation ──
     function showConfirmation() {
       if (!validate()) return;
 
@@ -660,13 +607,11 @@
     }
 
 
-    // ── Back to form ──
     function backToForm() {
       showScreen('formScreen');
     }
 
 
-    // ── Submit to Make webhook ──
     async function submitAbsence() {
       const btn = document.getElementById('sendBtn');
       btn.disabled = true;
@@ -706,17 +651,25 @@
     }
 
 
-    // ── Close LIFF ──
     function closeLiff() {
-      if (liff.isInClient()) {
-        liff.closeWindow();
-      } else {
-        window.close();
+      try {
+        if (liff.isInClient()) {
+          liff.closeWindow();
+        } else {
+          // Not inside LINE — try to close the browser tab
+          window.close();
+        }
+      } catch (err) {
+        console.error('Close error:', err);
       }
+
+      // If closeWindow didn't work after 500ms, show a manual instruction
+      setTimeout(function() {
+        document.getElementById('closeMessage').classList.remove('hidden');
+      }, 500);
     }
 
 
-    // ── Reset form ──
     function resetForm() {
       document.getElementById('studentName').selectedIndex = 0;
       document.getElementById('studentName').classList.add('placeholder');
@@ -732,7 +685,6 @@
     }
 
 
-    // ── Screen management ──
     function showScreen(screenId) {
       document.getElementById('loading').classList.add('hidden');
       document.getElementById('formScreen').classList.add('hidden');
@@ -743,7 +695,6 @@
     }
 
 
-    // ── Start ──
     document.addEventListener('DOMContentLoaded', initLiff);
   </script>
 </body>
