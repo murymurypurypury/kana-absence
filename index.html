@@ -332,7 +332,7 @@
         <button class="date-shortcut" onclick="setDate('tomorrow', this)">明日</button>
         <button class="date-shortcut" onclick="setDate('day-after', this)">明後日</button>
       </div>
-      <input type="date" id="absenceDate" min="">
+      <input type="date" id="absenceDate" min="" onchange="updateTimeSlots()">
     </div>
 
     <div class="field" id="fieldTime">
@@ -341,15 +341,6 @@
       </div>
       <select id="classTime" class="placeholder" onchange="this.classList.remove('placeholder')">
         <option value="" disabled selected>時間を選んでください</option>
-        <option value="13:00">13:00</option>
-        <option value="14:00">14:00</option>
-        <option value="15:00">15:00</option>
-        <option value="16:00">16:00</option>
-        <option value="17:00">17:00</option>
-        <option value="18:00">18:00</option>
-        <option value="19:00">19:00</option>
-        <option value="20:00">20:00</option>
-        <option value="21:00">21:00</option>
       </select>
     </div>
 
@@ -523,6 +514,7 @@
 
       document.querySelectorAll('.date-shortcut').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      updateTimeSlots(); 
     }
 
 
@@ -554,7 +546,46 @@
       return `${d.getMonth() + 1}月${d.getDate()}日（${days[d.getDay()]}）`;
     }
 
-
+    function updateTimeSlots() {
+      var dateValue = document.getElementById('absenceDate').value;
+      var timeSelect = document.getElementById('classTime');
+    
+      // Clear existing options except placeholder
+      timeSelect.innerHTML = '<option value="" disabled selected>時間を選んでください</option>';
+      timeSelect.classList.add('placeholder');
+    
+      if (!dateValue) return;
+    
+      // Determine day of week
+      var d = new Date(dateValue + 'T00:00:00');
+      var dayOfWeek = d.getDay(); // 0 = Sunday, 6 = Saturday
+    
+      var times = [];
+    
+      if (dayOfWeek === 6) {
+        // Saturday: 9:00 - 16:00
+        times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
+      } else if (dayOfWeek === 0) {
+        // Sunday: closed
+        var opt = document.createElement('option');
+        opt.value = '';
+        opt.textContent = '日曜日は休校日です';
+        opt.disabled = true;
+        timeSelect.appendChild(opt);
+        return;
+      } else {
+        // Weekday: 13:00 - 20:00
+        times = ['13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
+      }
+    
+      times.forEach(function(t) {
+        var opt = document.createElement('option');
+        opt.value = t;
+        opt.textContent = t;
+        timeSelect.appendChild(opt);
+      });
+    }
+    
     function validate() {
       let valid = true;
 
@@ -650,7 +681,7 @@
       }
     }
 
-
+    
     function closeLiff() {
       try {
         if (liff.isInClient()) {
