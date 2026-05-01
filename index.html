@@ -51,16 +51,8 @@
       background: var(--bg);
       border-radius: 16px 16px 0 0;
     }
-    .header h1 {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-    .header p {
-      font-size: 13px;
-      opacity: 0.85;
-      margin-top: 4px;
-    }
+    .header h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+    .header p { font-size: 13px; opacity: 0.85; margin-top: 4px; }
 
     .form-container {
       max-width: 420px;
@@ -120,31 +112,79 @@
     select.placeholder { color: var(--text-light); }
     textarea { resize: none; height: 70px; }
 
-    .date-shortcuts {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .date-shortcut {
-      flex: 1;
-      padding: 10px 0;
-      border: 2px solid var(--border);
+    .auto-filled {
+      background: var(--primary-light);
+      border: 2px solid var(--primary-light);
+      padding: 14px 16px;
       border-radius: 10px;
-      background: white;
-      font-family: 'Zen Maru Gothic', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-dark);
       text-align: center;
     }
-    .date-shortcut:active,
-    .date-shortcut.active {
+    .info-text {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    .info-banner {
+      background: var(--primary-light);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .student-card {
+      background: var(--card);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 8px;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .student-card:active, .student-card.selected {
       border-color: var(--primary);
       background: var(--primary-light);
-      color: var(--primary-dark);
     }
+    .student-card .sc-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .student-card .sc-info { flex: 1; }
+    .student-card .sc-name { font-weight: 700; font-size: 15px; }
+    .student-card .sc-class { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+    .student-card .sc-arrow { color: var(--text-light); font-size: 20px; }
+
+    .date-card {
+      background: var(--card);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .date-card:active, .date-card.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    .date-card .dc-date { font-weight: 700; font-size: 15px; }
+    .date-card .dc-distance { font-size: 11px; color: var(--text-light); }
 
     .confirm-card {
       background: var(--card);
@@ -214,64 +254,36 @@
       font-size: 14px;
       font-weight: 500;
     }
-    .status-error {
-      background: var(--error-bg);
-      color: var(--error);
-    }
+    .status-error { background: var(--error-bg); color: var(--error); }
 
-    .success-screen {
-      text-align: center;
-      padding: 40px 20px;
-    }
+    .success-screen { text-align: center; padding: 40px 20px; }
     .success-icon {
-      width: 72px;
-      height: 72px;
+      width: 72px; height: 72px;
       border-radius: 50%;
       background: var(--success-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       margin: 0 auto 20px;
       font-size: 36px;
     }
-    .success-screen h2 {
-      font-size: 20px;
-      margin-bottom: 8px;
-    }
-    .success-screen p {
-      color: var(--text-light);
-      font-size: 14px;
-      line-height: 1.6;
-    }
+    .success-screen h2 { font-size: 20px; margin-bottom: 8px; }
+    .success-screen p { color: var(--text-light); font-size: 14px; line-height: 1.6; }
     .close-btn {
-      width: 100%;
-      padding: 16px;
-      border: none;
+      width: 100%; padding: 16px; border: none;
       border-radius: var(--radius);
-      background: var(--primary);
-      color: white;
+      background: var(--primary); color: white;
       font-family: 'Zen Maru Gothic', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 28px;
+      font-size: 16px; font-weight: 700;
+      cursor: pointer; margin-top: 28px;
       box-shadow: 0 4px 16px rgba(59,122,87,0.25);
     }
-    .close-message {
-      margin-top: 12px;
-      font-size: 13px;
-      color: var(--text-light);
-    }
+    .close-message { margin-top: 12px; font-size: 13px; color: var(--text-light); }
     .close-message.hidden { display: none; }
 
     .loading-overlay {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(247,246,243,0.92);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       z-index: 100;
     }
     .spinner {
@@ -282,21 +294,15 @@
       animation: spin 0.8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .loading-overlay p {
-      margin-top: 16px;
-      font-size: 14px;
-      color: var(--text-light);
-    }
-
+    .loading-overlay p { margin-top: 16px; font-size: 14px; color: var(--text-light); }
     .hidden { display: none !important; }
-
-    .field.error select,
-    .field.error input { border-color: var(--error); }
-    .field-error-text {
-      font-size: 12px;
-      color: var(--error);
-      margin-top: 6px;
+    .empty-state {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-light);
+      font-size: 14px;
     }
+    .empty-state .empty-icon { font-size: 40px; margin-bottom: 12px; }
   </style>
 </head>
 <body>
@@ -311,37 +317,33 @@
     <p>KANA English</p>
   </div>
 
+  <!-- ════════ STUDENT PICKER SCREEN ════════ -->
+  <div id="studentScreen" class="form-container hidden">
+    <div class="field">
+      <div class="field-label"><span class="icon">👤</span>生徒を選択<span class="required">必須</span></div>
+      <div id="studentList"></div>
+    </div>
+  </div>
+
   <!-- ════════ FORM SCREEN ════════ -->
   <div id="formScreen" class="form-container hidden">
 
-    <div class="field" id="fieldStudent">
-      <div class="field-label">
-        <span class="icon">👤</span>生徒名<span class="required">必須</span>
-      </div>
-      <select id="studentName" class="placeholder" onchange="this.classList.remove('placeholder')">
-        <option value="" disabled selected>生徒を選んでください</option>
-      </select>
-    </div>
+    <div class="info-banner" id="studentInfoBanner"></div>
 
     <div class="field" id="fieldDate">
       <div class="field-label">
         <span class="icon">📅</span>欠席日<span class="required">必須</span>
       </div>
-      <div class="date-shortcuts">
-        <button class="date-shortcut" onclick="setDate('today', this)">今日</button>
-        <button class="date-shortcut" onclick="setDate('tomorrow', this)">明日</button>
-        <button class="date-shortcut" onclick="setDate('day-after', this)">明後日</button>
-      </div>
-      <input type="date" id="absenceDate" min="" onchange="updateTimeSlots()">
+      <div id="dateList"></div>
+      <div class="info-text" id="dateInfoText"></div>
     </div>
 
     <div class="field" id="fieldTime">
       <div class="field-label">
-        <span class="icon">🕐</span>クラス時間<span class="required">必須</span>
+        <span class="icon">🕐</span>クラス時間
       </div>
-      <select id="classTime" class="placeholder" onchange="this.classList.remove('placeholder')">
-        <option value="" disabled selected>時間を選んでください</option>
-      </select>
+      <div class="auto-filled" id="autoTime">-</div>
+      <div class="info-text">通常クラスの時間が自動入力されます</div>
     </div>
 
     <div class="field">
@@ -360,28 +362,17 @@
     </div>
 
     <button class="submit-btn" onclick="showConfirmation()">確認画面へ</button>
+    <button class="back-btn" onclick="backToStudentPicker()">生徒を変更</button>
   </div>
 
   <!-- ════════ CONFIRM SCREEN ════════ -->
   <div id="confirmScreen" class="form-container hidden">
     <div class="confirm-card">
       <h3>📋 以下の内容で送信します</h3>
-      <div class="confirm-row">
-        <span class="label">生徒名</span>
-        <span class="value" id="confirmStudent"></span>
-      </div>
-      <div class="confirm-row">
-        <span class="label">欠席日</span>
-        <span class="value" id="confirmDate"></span>
-      </div>
-      <div class="confirm-row">
-        <span class="label">クラス時間</span>
-        <span class="value" id="confirmTime"></span>
-      </div>
-      <div class="confirm-row">
-        <span class="label">理由</span>
-        <span class="value" id="confirmReason"></span>
-      </div>
+      <div class="confirm-row"><span class="label">生徒名</span><span class="value" id="confirmStudent"></span></div>
+      <div class="confirm-row"><span class="label">欠席日</span><span class="value" id="confirmDate"></span></div>
+      <div class="confirm-row"><span class="label">クラス時間</span><span class="value" id="confirmTime"></span></div>
+      <div class="confirm-row"><span class="label">理由</span><span class="value" id="confirmReason"></span></div>
     </div>
     <button class="submit-btn" id="sendBtn" onclick="submitAbsence()">この内容で送信する</button>
     <button class="back-btn" onclick="backToForm()">修正する</button>
@@ -400,123 +391,216 @@
 
   <!-- ════════ ERROR SCREEN ════════ -->
   <div id="errorScreen" class="form-container hidden">
-    <div class="status-message status-error" id="errorMessage">
-      エラーが発生しました。もう一度お試しください。
-    </div>
-    <button class="submit-btn" onclick="resetForm()">もう一度やり直す</button>
+    <div class="status-message status-error" id="errorMessage">エラーが発生しました。</div>
+    <button class="submit-btn" onclick="location.reload()">もう一度やり直す</button>
   </div>
 
 
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
-    // ════════════════════════════════════════════════
-    // CONFIG
-    // ════════════════════════════════════════════════
     const CONFIG = {
       LIFF_ID: '2009843493-wbTFJitn',
       WEBHOOK_URL: 'https://hook.eu1.make.com/68awyiuq2m5y6tneni64yp7eqlcnm64s',
       STUDENT_API: 'https://hook.eu1.make.com/5ccwg3jy3wnee5pizu3e6evn0zua6yrb',
       API_SECRET: '1234567890123456789012345678901234567890'
     };
-    // ════════════════════════════════════════════════
 
+    const DAY_NAMES = ['日', '月', '火', '水', '木', '金', '土'];
 
     let lineUserId = null;
     let lineDisplayName = null;
-
-
+    let studentList = [];
+    let currentStudent = null;
+    let selectedDate = null;
+    let holidaysList = [];
+    
     async function initLiff() {
       try {
         await liff.init({ liffId: CONFIG.LIFF_ID });
-
-        if (!liff.isLoggedIn()) {
-          liff.login();
-          return;
-        }
-
+        if (!liff.isLoggedIn()) { liff.login(); return; }
         const profile = await liff.getProfile();
         lineUserId = profile.userId;
         lineDisplayName = profile.displayName;
-
-        await populateStudents();
-        setMinDate();
-        showScreen('formScreen');
-
+        await loadStudents();
       } catch (err) {
         console.error('LIFF init error:', err);
-        document.getElementById('errorMessage').textContent =
-          'LIFFの初期化に失敗しました。LINEアプリから開き直してください。';
-        showScreen('errorScreen');
+        showError('LIFFの初期化に失敗しました。LINEアプリから開き直してください。');
       }
     }
 
-
-    async function populateStudents() {
-      const select = document.getElementById('studentName');
-
+    async function loadStudents() {
       try {
-        const url = CONFIG.STUDENT_API
-          + '?userId=' + encodeURIComponent(lineUserId)
-          + '&secret=' + encodeURIComponent(CONFIG.API_SECRET);
-
-        const response = await fetch(url);
-        const data = await response.json();
-
-        if (data.students && data.students.length > 0) {
-          data.students.forEach(s => {
-            const opt = document.createElement('option');
-            opt.value = s.name;
-            opt.textContent = s.name;
-            select.appendChild(opt);
-          });
-
-          if (data.students.length === 1) {
-            select.selectedIndex = 1;
-            select.classList.remove('placeholder');
-          }
-        } else {
-          const opt = document.createElement('option');
-          opt.value = '';
-          opt.textContent = '生徒が見つかりません';
-          select.appendChild(opt);
-
-          document.getElementById('errorMessage').textContent =
-            'このLINEアカウントに紐づく生徒が見つかりません。スタッフまでご連絡ください。';
-          showScreen('errorScreen');
+        // Fetch holidays first
+        try {
+          const holUrl = CONFIG.STUDENT_API + '?mode=holidays&secret=' + encodeURIComponent(CONFIG.API_SECRET);
+          const holRes = await fetch(holUrl);
+          const holData = await holRes.json();
+          holidaysList = holData.holidays || [];
+        } catch (err) {
+          holidaysList = [];
         }
+
+    const url = CONFIG.STUDENT_API
+      + '?mode=students&userId=' + encodeURIComponent(lineUserId)
+      + '&secret=' + encodeURIComponent(CONFIG.API_SECRET);
+    // ... rest unchanged
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if (!data.students || data.students.length === 0) {
+          showError('このLINEアカウントに紐づく生徒が見つかりません。');
+          return;
+        }
+
+        // Filter out adult students
+        studentList = data.students.filter(s => !s.isAdult);
+
+        if (studentList.length === 0) {
+          showError('お子様の登録がありません。\n大人レッスンの方は別メニューをご利用ください。');
+          return;
+        }
+
+        // Skip picker if only one student
+        if (studentList.length === 1) {
+          selectStudent(0);
+        } else {
+          renderStudentPicker();
+          showScreen('studentScreen');
+        }
+
       } catch (err) {
         console.error('Failed to load students:', err);
-        document.getElementById('errorMessage').textContent =
-          '生徒情報の読み込みに失敗しました。もう一度お試しください。';
-        showScreen('errorScreen');
+        showError('生徒情報の読み込みに失敗しました。');
       }
     }
 
+    function renderStudentPicker() {
+      const list = document.getElementById('studentList');
+      list.innerHTML = '';
+      studentList.forEach((s, i) => {
+        const div = document.createElement('div');
+        div.className = 'student-card';
+        div.onclick = () => selectStudent(i);
+        div.innerHTML =
+          '<div class="sc-avatar">👤</div>' +
+          '<div class="sc-info">' +
+            '<div class="sc-name">' + s.name + '</div>' +
+            '<div class="sc-class">' + (s.className || 'クラス未設定') +
+              (s.regularDay && s.regularTime ? ' ・ ' + s.regularDay + '曜 ' + s.regularTime : '') +
+            '</div>' +
+          '</div>' +
+          '<div class="sc-arrow">›</div>';
+        list.appendChild(div);
+      });
+    }
+
+    function selectStudent(idx) {
+      currentStudent = studentList[idx];
+
+      if (!currentStudent.regularDay || !currentStudent.regularTime) {
+        showError(currentStudent.name + 'さんの通常クラスが設定されていません。\nスタッフにご連絡ください。');
+        return;
+      }
+
+      // Show student info banner
+      document.getElementById('studentInfoBanner').innerHTML =
+        '<strong>' + currentStudent.name + 'さん</strong>（' + currentStudent.className + '）' +
+        '<br>通常クラス: ' + currentStudent.regularDay + '曜日 ' + currentStudent.regularTime;
+
+      // Show auto-filled time
+      document.getElementById('autoTime').textContent = currentStudent.regularTime;
+
+      // Generate valid date list
+      generateDateList();
+
+      // Date info text
+      document.getElementById('dateInfoText').textContent =
+        '※ ' + currentStudent.regularDay + '曜日のみ選択できます。';
+
+      backToStudentPicker.lastWasFromForm = false;
+      showScreen('formScreen');
+    }
+
+    function backToStudentPicker() {
+      if (studentList.length === 1) return; // Only one student, no picker
+      currentStudent = null;
+      selectedDate = null;
+      showScreen('studentScreen');
+    }
+
+    function generateDateList() {
+      const list = document.getElementById('dateList');
+      list.innerHTML = '';
+
+      const targetDayIdx = DAY_NAMES.indexOf(currentStudent.regularDay);
+      if (targetDayIdx < 0) {
+        list.innerHTML = '<div class="empty-state">通常クラスの曜日が不正です。</div>';
+        return;
+      }
+
+      // Find next 6 occurrences of this weekday (going back up to 1 week, forward up to 5)
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const dates = [];
+      // Start from 7 days ago to allow reporting recent past absences
+      const startDate = new Date(today);
+      startDate.setDate(today.getDate() - 7);
+
+      for (let i = 0; i < 60; i++) {
+        const d = new Date(startDate);
+        d.setDate(startDate.getDate() + i);
+        if (d.getDay() === targetDayIdx) {
+          const dateStr = toLocalDateString(d);
+          if (holidaysList.indexOf(dateStr) === -1) {
+            dates.push(new Date(d));
+          }
+        }
+        if (dates.length >= 8) break;
+      }
+
+      if (dates.length === 0) {
+        list.innerHTML = '<div class="empty-state">日付がありません。</div>';
+        return;
+      }
+
+      dates.forEach(d => {
+        const div = document.createElement('div');
+        div.className = 'date-card';
+        const dateStr = toLocalDateString(d);
+        div.setAttribute('data-date', dateStr);
+        div.onclick = () => selectDate(dateStr, div);
+
+        const isToday = d.getTime() === today.getTime();
+        const diffDays = Math.round((d - today) / (1000 * 60 * 60 * 24));
+        let distanceLabel = '';
+        if (isToday) distanceLabel = '今日';
+        else if (diffDays === 1) distanceLabel = '明日';
+        else if (diffDays === -1) distanceLabel = '昨日';
+        else if (diffDays > 0) distanceLabel = diffDays + '日後';
+        else distanceLabel = Math.abs(diffDays) + '日前';
+
+        div.innerHTML =
+          '<div class="dc-date">' + (d.getMonth()+1) + '月' + d.getDate() + '日（' + DAY_NAMES[d.getDay()] + '）</div>' +
+          '<div class="dc-distance">' + distanceLabel + '</div>';
+
+        list.appendChild(div);
+      });
+    }
+
+    function selectDate(dateStr, el) {
+      selectedDate = dateStr;
+      document.querySelectorAll('.date-card').forEach(d => d.classList.remove('selected'));
+      el.classList.add('selected');
+    }
 
     function toLocalDateString(date) {
       const y = date.getFullYear();
       const m = String(date.getMonth() + 1).padStart(2, '0');
       const d = String(date.getDate()).padStart(2, '0');
-      return `${y}-${m}-${d}`;
+      return y + '-' + m + '-' + d;
     }
-
-    function setMinDate() {
-      document.getElementById('absenceDate').min = toLocalDateString(new Date());
-    }
-
-    function setDate(which, btn) {
-      const today = new Date();
-      let target = new Date();
-      if (which === 'tomorrow') target.setDate(today.getDate() + 1);
-      if (which === 'day-after') target.setDate(today.getDate() + 2);
-
-      document.getElementById('absenceDate').value = toLocalDateString(target);
-
-      document.querySelectorAll('.date-shortcut').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      updateTimeSlots(); 
-    }
-
 
     function handleReasonChange(select) {
       select.classList.remove('placeholder');
@@ -530,7 +614,6 @@
       }
     }
 
-
     function getReasonText() {
       const sel = document.getElementById('reason');
       if (sel.value === 'other') {
@@ -539,124 +622,42 @@
       return sel.value || 'なし';
     }
 
-
     function formatDateJP(dateStr) {
       const d = new Date(dateStr + 'T00:00:00');
-      const days = ['日', '月', '火', '水', '木', '金', '土'];
-      return `${d.getMonth() + 1}月${d.getDate()}日（${days[d.getDay()]}）`;
+      return (d.getMonth() + 1) + '月' + d.getDate() + '日（' + DAY_NAMES[d.getDay()] + '）';
     }
-
-    function updateTimeSlots() {
-      var dateValue = document.getElementById('absenceDate').value;
-      var timeSelect = document.getElementById('classTime');
-    
-      // Clear existing options except placeholder
-      timeSelect.innerHTML = '<option value="" disabled selected>時間を選んでください</option>';
-      timeSelect.classList.add('placeholder');
-    
-      if (!dateValue) return;
-    
-      // Determine day of week
-      var d = new Date(dateValue + 'T00:00:00');
-      var dayOfWeek = d.getDay(); // 0 = Sunday, 6 = Saturday
-    
-      var times = [];
-    
-      if (dayOfWeek === 6) {
-        // Saturday: 9:00 - 16:00
-        times = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
-      } else if (dayOfWeek === 0) {
-        // Sunday: closed
-        var opt = document.createElement('option');
-        opt.value = '';
-        opt.textContent = '日曜日は休校日です';
-        opt.disabled = true;
-        timeSelect.appendChild(opt);
-        return;
-      } else {
-        // Weekday: 13:00 - 20:00
-        times = ['13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
-      }
-    
-      times.forEach(function(t) {
-        var opt = document.createElement('option');
-        opt.value = t;
-        opt.textContent = t;
-        timeSelect.appendChild(opt);
-      });
-    }
-    
-    function validate() {
-      let valid = true;
-
-      document.querySelectorAll('.field').forEach(f => f.classList.remove('error'));
-      document.querySelectorAll('.field-error-text').forEach(e => e.remove());
-
-      const student = document.getElementById('studentName').value;
-      const date = document.getElementById('absenceDate').value;
-      const time = document.getElementById('classTime').value;
-
-      if (!student) {
-        markError('fieldStudent', '生徒を選んでください');
-        valid = false;
-      }
-      if (!date) {
-        markError('fieldDate', '日付を選んでください');
-        valid = false;
-      }
-      if (!time) {
-        markError('fieldTime', '時間を選んでください');
-        valid = false;
-      }
-
-      return valid;
-    }
-
-    function markError(fieldId, message) {
-      const field = document.getElementById(fieldId);
-      field.classList.add('error');
-      const err = document.createElement('div');
-      err.className = 'field-error-text';
-      err.textContent = message;
-      field.appendChild(err);
-    }
-
 
     function showConfirmation() {
-      if (!validate()) return;
+      if (!selectedDate) {
+        alert('欠席日を選択してください。');
+        return;
+      }
 
-      const student = document.getElementById('studentName');
-      const date = document.getElementById('absenceDate').value;
-      const time = document.getElementById('classTime').value;
-
-      document.getElementById('confirmStudent').textContent = student.options[student.selectedIndex].text;
-      document.getElementById('confirmDate').textContent = formatDateJP(date);
-      document.getElementById('confirmTime').textContent = time;
+      document.getElementById('confirmStudent').textContent = currentStudent.name;
+      document.getElementById('confirmDate').textContent = formatDateJP(selectedDate);
+      document.getElementById('confirmTime').textContent = currentStudent.regularTime;
       document.getElementById('confirmReason').textContent = getReasonText();
 
       showScreen('confirmScreen');
     }
 
-
     function backToForm() {
       showScreen('formScreen');
     }
-
 
     async function submitAbsence() {
       const btn = document.getElementById('sendBtn');
       btn.disabled = true;
       btn.textContent = '送信中...';
 
-      const student = document.getElementById('studentName');
-
       const payload = {
         lineUserId: lineUserId,
         lineDisplayName: lineDisplayName,
-        studentName: student.options[student.selectedIndex].text,
-        studentId: student.value,
-        absenceDate: document.getElementById('absenceDate').value,
-        classTime: document.getElementById('classTime').value,
+        studentName: currentStudent.name,
+        absenceDate: selectedDate,
+        classTime: currentStudent.regularTime,
+        regularDay: currentStudent.regularDay,
+        className: currentStudent.className,
         reason: getReasonText(),
         submittedAt: new Date().toISOString()
       };
@@ -675,56 +676,31 @@
         }
       } catch (err) {
         console.error('Submit error:', err);
-        document.getElementById('errorMessage').textContent =
-          '送信に失敗しました。電波状況を確認して、もう一度お試しください。';
-        showScreen('errorScreen');
+        showError('送信に失敗しました。電波状況を確認して、もう一度お試しください。');
       }
     }
 
-    
     function closeLiff() {
       try {
-        if (liff.isInClient()) {
-          liff.closeWindow();
-        } else {
-          // Not inside LINE — try to close the browser tab
-          window.close();
-        }
-      } catch (err) {
-        console.error('Close error:', err);
-      }
-
-      // If closeWindow didn't work after 500ms, show a manual instruction
+        if (typeof liff !== 'undefined' && liff.closeWindow) liff.closeWindow();
+      } catch (err) {}
+      try { window.close(); } catch (err) {}
       setTimeout(function() {
         document.getElementById('closeMessage').classList.remove('hidden');
       }, 500);
     }
 
-
-    function resetForm() {
-      document.getElementById('studentName').selectedIndex = 0;
-      document.getElementById('studentName').classList.add('placeholder');
-      document.getElementById('absenceDate').value = '';
-      document.getElementById('classTime').selectedIndex = 0;
-      document.getElementById('classTime').classList.add('placeholder');
-      document.getElementById('reason').selectedIndex = 0;
-      document.getElementById('reason').classList.add('placeholder');
-      document.getElementById('reasonText').value = '';
-      document.getElementById('reasonText').classList.add('hidden');
-      document.querySelectorAll('.date-shortcut').forEach(b => b.classList.remove('active'));
-      showScreen('formScreen');
+    function showError(msg) {
+      document.getElementById('errorMessage').textContent = msg;
+      showScreen('errorScreen');
     }
-
 
     function showScreen(screenId) {
-      document.getElementById('loading').classList.add('hidden');
-      document.getElementById('formScreen').classList.add('hidden');
-      document.getElementById('confirmScreen').classList.add('hidden');
-      document.getElementById('successScreen').classList.add('hidden');
-      document.getElementById('errorScreen').classList.add('hidden');
+      ['loading','studentScreen','formScreen','confirmScreen','successScreen','errorScreen'].forEach(s => {
+        document.getElementById(s).classList.add('hidden');
+      });
       document.getElementById(screenId).classList.remove('hidden');
     }
-
 
     document.addEventListener('DOMContentLoaded', initLiff);
   </script>
